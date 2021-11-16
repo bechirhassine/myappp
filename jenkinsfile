@@ -4,7 +4,7 @@ pipeline {
        stage('Pull') {
            steps {
                script {
-                   checkout([$class: 'GitSCM', branches: [[name: '*/master']],
+                   checkout([$class: 'GitSCM', branches: [[name: '*/main']],
                    userRemoteConfigs:[[
                    credentialsId: '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',
                    url: 'https://github.com/bechirhassine/myappp']]])
