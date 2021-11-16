@@ -1,0 +1,38 @@
+pipeline {
+   agent any
+   stages {
+       stage('Pull') {
+           steps {
+               script {
+                   checkout([$class: 'GitSCM', branches: [[name: '*/master']],
+                   userRemoteConfigs:[[
+                   credentialsId: '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',
+                   url: 'https://github.com/bechirhassine/myappp']]])
+               }
+           }
+       }
+       stage('Build') {
+           steps {
+               script {
+               sh "sudo ansible-playbook Ansible/build.yml -i Ansible/inventory/host.yml "    
+              	       }
+           }
+       }
+       stage('Docker') {
+           steps {
+               script {
+               sh "sudo ansible-playbook Ansible/docker.yml -i Ansible/inventory/host.yml "    
+              	       }
+           }
+       }
+       stage('Push local image to repositroy') {
+           steps {
+               script {
+               sh "sudo ansible-playbook Ansible/dockerregistry.yml -i Ansible/inventory/host.yml "    
+              	       }
+           }
+       }
+   }
+}
+
+

@@ -1,0 +1,20 @@
+---
+- name: create docker image
+  docker_image:
+    name: bechirhassine/devops
+    build:
+      path: /var/lib/jenkins/workspace/myappp
+      pull: no 
+    source: build
+    state: present
+    force_source: true
+-  name: run container docker
+   docker_container:
+     name: myapp_container
+     image: bechirhassine/devops:latest
+     state: started
+     recreate: true
+     ports:
+      - "4200:80"
+
+

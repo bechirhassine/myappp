@@ -1,0 +1,17 @@
+---
+
+- name: Log into DockerHub
+  docker_login:
+    username: pichpocha1
+    password: bechirhassine6
+    email: mohamedbechir.hassine@esprit.tn
+    
+
+    
+- name: Push image to registry
+  docker_image:
+    name: bechirhassine/devops:latest
+    repository: bechirhassine/devops
+    push: yes
+    source: local
+
